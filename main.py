@@ -12,6 +12,9 @@ cors = CORS(app)
 
 controladorCandidato = ControladorCandidato()
 
+from Controladores.ControladorPartido import ControladorPartido
+miControladorPartido= ControladorPartido()
+
 @app.route("/",methods=['GET'])
 def test():
     json = {}
@@ -56,6 +59,39 @@ def eliminarEstudiante():
         return {"resultado": "Candidato eliminado!"}
     else:
         return {"resultado": "Error al eliminar el candidato!"}
+
+#metodos Partido
+
+@app.route("/partidos",methods=['GET'])
+def getPartidos():
+    json=miControladorPartido.index()
+    return jsonify(json)
+
+@app.route("/partidos",methods=['POST'])
+def crearPartido():
+    data= request.get_json()
+    json=miControladorPartido.create(data)
+    return jsonify(json)
+
+@app.route("/partidos/<string:id>",methods=['GET'])
+def getPartido(id):
+    json=miControladorPartido.show(id)
+    return jsonify(json)
+
+@app.route("/partidos/<string:id>",methods=['PUT'])
+def modificarPartido(id):
+    data= request.get_json()
+    json=miControladorPartido.update(id)
+    return jsonify(json)
+
+@app.route("/partidos/<string:id>",methods=['DELETE'])
+def eliminarPartodo():
+    json=miControladorPartido.delete(id)
+    return jsonify(json)
+
+
+
+
 
 def loadFileConfig():
     with open('config.json') as f:
