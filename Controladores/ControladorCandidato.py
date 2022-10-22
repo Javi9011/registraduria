@@ -3,9 +3,7 @@ class ControladorCandidato():
     def __init__(self):
         print("Creando Controlador Candidato")
 
-    def createCandidato(self):
-        print("Crear un candidato")
-        return True
+
 
     def buscarTodos(self):
         print("Listar candidatos")
@@ -20,5 +18,5 @@ class ControladorCandidato():
         return True
 
     def deleteCandidato(self, id):
-        print("Elimiando candidato con id ", id)
+        print("Borrar candidato con id ", id)
         return True
