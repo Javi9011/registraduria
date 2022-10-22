@@ -18,5 +18,5 @@ class ControladorCandidato():
         return True
 
     def deleteCandidato(self, id):
-        print("Elimiando candidato con id ", id)
+        print("Borrar candidato con id ", id)
         return True
