@@ -3,9 +3,7 @@ class ControladorCandidato():
     def __init__(self):
         print("Creando Controlador Candidato")
 
-    def createCandidato(self):
-        print("Crear un candidato")
-        return True
+
 
     def buscarTodos(self):
         print("Listar candidatos")
