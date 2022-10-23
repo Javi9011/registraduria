@@ -8,10 +8,12 @@ from waitress import serve
 from Controladores.ControladorCandidato import ControladorCandidato
 from Controladores.ControladorPartido import ControladorPartido
 from Controladores.ControladorResultado import ControladorResultado
+from Controladores.ControladorMesa import ControladorMesa
 
 controladorCandidato = ControladorCandidato()
 miControladorPartido= ControladorPartido()
 controladorResultado = ControladorResultado()
+controladorMesa = ControladorMesa()
 
 app=Flask(__name__)
 cors = CORS(app)
@@ -22,16 +24,11 @@ def test():
     json["message"] = "Server running ..."
     return jsonify(json)
 
-
 @app.route("/candidato", methods=['POST'])
 def crearCandidato():
-    requestBody = request.get_json()
-    print("body request", requestBody)
-    result = controladorCandidato.createCandidato()
-    if(result):
-        return {"result": "El candidato se creo correctamente"}
-    else:
-        return {"result": "Error"}
+    data = request.get_json()
+    json = controladorCandidato.crearCandidato(data)
+    return jsonify(json)
 
 @app.route("/candidato/<string:id>", methods=['GET'])
 def buscarCandidato(id):
@@ -120,6 +117,40 @@ def updateResultado():
 
 @app.route("/resultados", methods=['DELETE'])
 def deleteResultado():
+    requestBody = request.get_json()
+    print("Request body: ", requestBody)
+
+@app.route("/mesa", methods=['POST'])
+def crearMesa():
+    data = request.get_json()
+    json = controladorMesa.createMesa(data)
+    return jsonify(json)
+
+@app.route("/mesa",methods=['GET'])
+def buscarMesas():
+    json=ControladorMesa.buscarMesas()
+    return jsonify(json)
+
+@app.route("/mesa/<string:id>", methods=['GET'])
+def buscarUnaMesa(id):
+    result = controladorMesa.buscarporID(id)
+    if result is None:
+        return {"mesa": "No se encuentra la mesa en base de datos!"}
+    else:
+        return jsonify(result)
+
+@app.route("/mesa", methods=['PUT'])
+def updateMesa():
+    requestBody = request.get_json()
+    print("Request body: ", requestBody)
+    result = controladorMesa.actualizarMesa(requestBody)
+    if result:
+        return {"mesa": "Mesa actualizado!"}
+    else:
+        return {"mesa": "Error al actualizar la mesa!"}
+
+@app.route("/mesa", methods=['DELETE'])
+def deleteMesa():
     requestBody = request.get_json()
     print("Request body: ", requestBody)
 
