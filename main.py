@@ -8,12 +8,11 @@ from waitress import serve
 from Controladores.ControladorCandidato import ControladorCandidato
 from Controladores.ControladorResultado import ControladorResultado
 
+controladorCandidato = ControladorCandidato()
+controladorResultado=ControladorResultado()
 
 app=Flask(__name__)
 cors = CORS(app)
-
-controladorCandidato = ControladorCandidato()
-controladorResultado=ControladorResultado()
 
 @app.route("/",methods=['GET'])
 def test():
