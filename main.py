@@ -6,14 +6,15 @@ import json
 from waitress import serve
 
 from Controladores.ControladorCandidato import ControladorCandidato
+from Controladores.ControladorPartido import ControladorPartido
+from Controladores.ControladorResultado import ControladorResultado
+
+controladorCandidato = ControladorCandidato()
+miControladorPartido= ControladorPartido()
+controladorResultado = ControladorResultado()
 
 app=Flask(__name__)
 cors = CORS(app)
-
-controladorCandidato = ControladorCandidato()
-
-from Controladores.ControladorPartido import ControladorPartido
-miControladorPartido= ControladorPartido()
 
 @app.route("/",methods=['GET'])
 def test():
@@ -51,7 +52,7 @@ def actualizarCandidato():
         return {"resultado": "Error al actualizar el candidato!"}
 
 @app.route("/candidato", methods=['DELETE'])
-def eliminarEstudiante():
+def eliminarCandidato():
     requestBody = request.get_json()
     print("Request body: ", requestBody)
     result = controladorCandidato.deleteCandidato(requestBody)
@@ -88,6 +89,42 @@ def modificarPartido(id):
 def eliminarPartodo():
     json=miControladorPartido.delete(id)
     return jsonify(json)
+
+@app.route("/resultados",methods=['POST'])
+def crearResultado():
+    data = request.get_json()
+    json=controladorResultado.createResultado()
+    return jsonify(json)
+    if result:
+        return {"result": "El candidato se creo correctamente"}
+    else:
+        return {"result": "Error"}
+
+@app.route("/resultados/<string:id>", methods=['GET'])
+def buscarResultado(id):
+    result = controladorResultado.buscarResultado(id)
+    if result is None:
+        return {"resultado": "No se encuentra el candidato en base de datos!"}
+    else:
+        return jsonify(result)
+
+@app.route("/resultados", methods=['PUT'])
+def updateResultado():
+    requestBody = request.get_json()
+    print("Request body: ", requestBody)
+    result = controladorResultado.updateResultado(requestBody)
+    if result:
+        return {"resultado": "Resultado actualizado!"}
+    else:
+        return {"resultado": "Error al actualizar el Resultado!"}
+
+@app.route("/resultados", methods=['DELETE'])
+def deleteResultado():
+    requestBody = request.get_json()
+    print("Request body: ", requestBody)
+
+
+
 
 
 
