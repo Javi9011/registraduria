@@ -1,12 +1,18 @@
+from Repositorios.InterfaceMesa import RepositorioMesa
 from Modelos.Mesa import Mesa
+
 class ControladorMesa():
 
     def __init__(self):
         print("Creando mesa...")
+        self.repositorioMesa = RepositorioMesa()
     def createMesa(self, infoMesa):
         print("Crear mesa..")
         laMesa = Mesa(infoMesa)
-        return laMesa.__dict__
+        print("Mesa a crear en la Base de Datos: ", laMesa.__dict__)
+        self.repositorioMesa.save(laMesa)
+        return True
+
     def buscarMesas(self):
         print("Listar todas las mesas")
         laMesa = {

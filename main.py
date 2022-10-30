@@ -162,13 +162,6 @@ def deleteMesa():
     requestBody = request.get_json()
     print("Request body: ", requestBody)
 
-
-
-
-
-
-
-
 def loadFileConfig():
     with open('config.json') as f:
         data = json.load(f)
