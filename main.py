@@ -38,25 +38,33 @@ def buscarCandidato(id):
     else:
         return jsonify(result)
 
+@app.route("/candidato", methods=['GET'])
+def buscarTodos():
+    result = controladorCandidato.buscarTodos()
+    if not result:
+        return {"resultado": "No se encuentran candidatos"}
+    else:
+        return jsonify(result)
+
+
+
 @app.route("/candidato", methods=['PUT'])
 def actualizarCandidato():
     requestBody = request.get_json()
     print("Request body: ", requestBody)
-    result = controladorCandidato.updateCandidato(requestBody)
+    result = controladorCandidato.actualizarCandidato(requestBody)
     if result:
         return {"resultado": "Candidato actualizado!"}
     else:
         return {"resultado": "Error al actualizar el candidato!"}
 
-@app.route("/candidato", methods=['DELETE'])
-def eliminarCandidato():
-    requestBody = request.get_json()
-    print("Request body: ", requestBody)
-    result = controladorCandidato.deleteCandidato(requestBody)
-    if result:
-        return {"resultado": "Candidato eliminado!"}
+@app.route("/candidato/<string:id>", methods=['DELETE'])
+def eliminarCandidato(id):
+    result = controladorCandidato.deleteCandidato(id)
+    if result is None:
+        return {"resultado": "No se elimina el candidato en base de datos!"}
     else:
-        return {"resultado": "Error al eliminar el candidato!"}
+        return jsonify(result)
 
 #metodos Partido
 

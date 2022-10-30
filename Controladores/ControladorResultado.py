@@ -16,6 +16,6 @@ class ControladorResultado():
     def updateResultado(self, id):
         print("Actualizando resultado con id ",id)
         return True
-    def deleteResultado(self, idResultado):
-        print("Elimiando Resultado con id ", idResultado)
-        return True
+
+    def deleteResultado(self, id):
+        return self.repositorioResultado.delete(id)
