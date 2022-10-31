@@ -98,7 +98,7 @@ def eliminarPartodo():
 @app.route("/resultados",methods=['POST'])
 def crearResultado():
     data = request.get_json()
-    json=controladorResultado.createResultado()
+    json=controladorResultado.crearResultado(data)
     return jsonify(json)
     if result:
         return {"result": "El candidato se creo correctamente"}
@@ -113,20 +113,31 @@ def buscarResultado(id):
     else:
         return jsonify(result)
 
+@app.route("/resultados", methods=['GET'])
+def buscarTodosResul():
+    result = controladorResultado.buscarTodosResul()
+    if not result:
+        return {"resultado": "No se encuentran candidatos"}
+    else:
+        return jsonify(result)
+
 @app.route("/resultados", methods=['PUT'])
 def updateResultado():
     requestBody = request.get_json()
     print("Request body: ", requestBody)
-    result = controladorResultado.updateResultado(requestBody)
+    result = controladorResultado.actualizarResultado(requestBody)
     if result:
         return {"resultado": "Resultado actualizado!"}
     else:
         return {"resultado": "Error al actualizar el Resultado!"}
 
-@app.route("/resultados", methods=['DELETE'])
-def deleteResultado():
-    requestBody = request.get_json()
-    print("Request body: ", requestBody)
+@app.route("/resultados/<string:id>", methods=['DELETE'])
+def deleteResultado(id):
+    result = controladorResultado.deleteResultado(id)
+    if result is None:
+        return {"resultado": "No se elimina el candidato en base de datos!"}
+    else:
+        return jsonify(result)
 
 @app.route("/mesa", methods=['POST'])
 def crearMesa():
