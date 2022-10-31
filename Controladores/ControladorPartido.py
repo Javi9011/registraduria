@@ -1,38 +1,39 @@
+from Repositorios.InterfacePartido import InterfacePartido
 from Modelos.Partido import Partido
 
 class ControladorPartido():
     def __int__(self):
         print("Creando controlador de Partido")
+        self.repositorioPartido = InterfacePartido()
 
-    def index(self):
-        print("Listar todos los Partidos")
-        unPartido = {
-            "id": "321",
-            "nombre": "fuerza ciudadana",
-            "lema": "juntos por un mejor futuro"
-        }
-        return [unPartido]
 
-    def create(self,infoPartido):
+
+    def crearPartido(self,bodyRequest):
         print("crear un Partido")
-        elPartido = Partido(infoPartido)
-        return elPartido.__dict__
+        elPartido = Partido(bodyRequest)
+        print("Partido a crear en la base de datos",elPartido.__dict__)
+        self.repositorioPartido.save(elPartido)
+        return True
 
-    def show(self,id):
-        print("Mostrando un Partido con su numero de id",id)
-        elPartido={
-            "id": id,
-            "nombre": "fuerza ciudadana",
-            "lema": "juntos por un mejor futuro"
+    def buscarTodosLosPartidos(self):
+        print("Buscando todos los partidos en la Base de Datos...")
+        self.repositorioPartido.findAll()
 
-        }
-        return elPartido
+    def buscarPartido(self,idObject):
+        print("buscar partido",idObject)
+        partido= Partido(self.repositorioPartido.findById(idObject))
+        return partido.__dict__
 
-    def update(self,id,infoPartido):
-        print("Actualizando un Partido con su numero de id",id)
-        elPartido= Partido(infoPartido)
-        return elPartido.__dict__
+    def actualizarPartido(self, partido):
+        partidoActual = Partido(self.repositorioPartido.findById(partido["idObject"]))
+        print("Actualizando Partido",partidoActual)
+        partidoActual.id = partido["id"]
+        partidoActual.nombre = partido["nombre"]
+        partidoActual.lema = partido["lema"]
+        self.repositorioPartido.save(partidoActual)
+        return True
 
-    def delete(self,id):
-        print("Eliminado un candidato con su numero id",id)
-        return{"delete_count": 1}
+
+    def deletePartido(self,id):
+        print("Eliminado un Partido con su numero id",id)
+        return self.repositorioPartido.delete(id)
