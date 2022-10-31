@@ -15,7 +15,7 @@ class ControladorResultado():
         return True
 
     def buscarTodosResul(self):
-        print("Buscando todos los resultados en la Base de Datos...")
+        print("Buscando todos los resultados en la Base de Datos")
         return self.repositorioResultado.findAll()
 
     def buscarResultado(self, idObject):
