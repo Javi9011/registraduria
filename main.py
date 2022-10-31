@@ -128,45 +128,47 @@ def deleteResultado():
     requestBody = request.get_json()
     print("Request body: ", requestBody)
 
+#Métodos mesa
 @app.route("/mesa", methods=['POST'])
 def crearMesa():
     data = request.get_json()
     json = controladorMesa.createMesa(data)
     return jsonify(json)
 
-@app.route("/mesa",methods=['GET'])
-def buscarMesas():
-    json=ControladorMesa.buscarMesas()
-    return jsonify(json)
-
-@app.route("/mesa/<string:id>", methods=['GET'])
-def buscarUnaMesa(id):
-    result = controladorMesa.buscarporID(id)
+@app.route("/mesa/<string:id>",methods=['GET'])
+def buscarMesa(id):
+    json=ControladorMesa.buscarMesa(id)
+    result = controladorMesa.buscarMesa(id)
     if result is None:
-        return {"mesa": "No se encuentra la mesa en base de datos!"}
+        return {"resultado": "No se encuentra la mesa en base de datos!"}
     else:
         return jsonify(result)
 
-@app.route("/mesa", methods=['PUT'])
-def updateMesa():
+@app.route("/mesa", methods=['GET'])
+def buscarTodas():
+    result = controladorMesa.buscarTodas()
+    if not result:
+        return {"resultado": "No se encuentran mesas"}
+    else:
+        return jsonify(result)
+
+@app.route("/mesa/<string:id>", methods=['PUT'])
+def actualizarMesa(id):
     requestBody = request.get_json()
     print("Request body: ", requestBody)
-    result = controladorMesa.actualizarMesa(requestBody)
+    result = controladorMesa.actualizarMesa(requestBody, id)
     if result:
-        return {"mesa": "Mesa actualizado!"}
+        return {"mesa": "La mesa fue actualizada!"}
     else:
         return {"mesa": "Error al actualizar la mesa!"}
 
-@app.route("/mesa", methods=['DELETE'])
-def deleteMesa():
-    requestBody = request.get_json()
-    print("Request body: ", requestBody)
-
-
-
-
-
-
+@app.route("/mesa/<string:id>", methods=['DELETE'])
+def borrarMesa(id):
+    result = controladorMesa.borrarMesa(id)
+    if result is None:
+        return {"resultado": "No se elimina la mesa en base de datos!"}
+    else:
+        return jsonify(result)
 
 
 def loadFileConfig():
