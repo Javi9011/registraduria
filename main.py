@@ -68,32 +68,47 @@ def eliminarCandidato(id):
 
 #metodos Partido
 
-@app.route("/partidos",methods=['GET'])
-def getPartidos():
-    json=miControladorPartido.index()
-    return jsonify(json)
+
 
 @app.route("/partidos",methods=['POST'])
 def crearPartido():
     data= request.get_json()
-    json=miControladorPartido.create(data)
+    json=miControladorPartido.crearPartido(data)
     return jsonify(json)
 
 @app.route("/partidos/<string:id>",methods=['GET'])
-def getPartido(id):
-    json=miControladorPartido.show(id)
-    return jsonify(json)
+def buscarPartido(id):
+    result=miControladorPartido.buscarPartido(id)
+    if result is None:
+        return {"resultado": "No se encuentra el partido en base de datos!"}
+    else:
+        return jsonify(result)
 
-@app.route("/partidos/<string:id>",methods=['PUT'])
-def modificarPartido(id):
-    data= request.get_json()
-    json=miControladorPartido.update(id)
-    return jsonify(json)
+@app.route("/partidos",methods=['GET'])
+def buscarTodosLosPartidos():
+    result= miControladorPartido.buscarTodosLosPartidos()
+    if not result:
+        return {"resultado": "No se encuentran los Partidos"}
+    else:
+        return jsonify(result)
+
+@app.route("/partidos", methods=['PUT'])
+def actualizarPartido():
+    requestBody = request.get_json()
+    print("Request body: ", requestBody)
+    result= miControladorPartido.actualizarPartido(requestBody)
+    if result:
+        return {"resultado": "Partido actualizado!"}
+    else:
+        return {"resultado": "Error al actualizar el Partido!"}
 
 @app.route("/partidos/<string:id>",methods=['DELETE'])
-def eliminarPartodo():
-    json=miControladorPartido.delete(id)
-    return jsonify(json)
+def eliminarPartido(id):
+    result= miControladorPartido.deletePartido(id)
+    if result is None:
+        return {"resultado": "No se elimina el Partido en base de datos!"}
+    else:
+        return jsonify(result)
 
 @app.route("/resultados",methods=['POST'])
 def crearResultado():
