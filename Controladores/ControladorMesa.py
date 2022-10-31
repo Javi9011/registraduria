@@ -6,33 +6,32 @@ class ControladorMesa():
     def __init__(self):
         print("Creando mesa...")
         self.repositorioMesa = RepositorioMesa()
+
     def createMesa(self, infoMesa):
-        print("Crear mesa..")
+        print("Crear mesa...")
         laMesa = Mesa(infoMesa)
         print("Mesa a crear en la Base de Datos: ", laMesa.__dict__)
         self.repositorioMesa.save(laMesa)
         return True
 
-    def buscarMesas(self):
-        print("Listar todas las mesas")
-        laMesa = {
-            "_id":"abc123",
-            "nombre":"Nelson",
-            "apellido": "Amaya"
-        }
-    def buscarporID(self,id):
-        print("Mostrando mesa con id",id)
-        laMesa = {
-            "_id":id,
-            "cedula":"123",
-            "nombre":"Nelson",
-            "apellido":"Amaya"
-        }
-    def actualizarMesa(self,id,infoMesa):
-        print("Actualizando mesa con id",id)
-        laMesa = Mesa(infoMesa)
-        return laMesa.__dict__
-    def borrarMesa(self,id):
-        print("Eliminando mesa con id",id)
-        return {"deleted_count":1}
+    def buscarTodas(self):
+        print("Buscando todas las mesas en la Base de Datos...")
+        return self.repositorioMesa.findAll()
+
+    def buscarMesas(self, idObject):
+        print("Buscar la mesa", idObject)
+        mesa = Mesa(self.repositorioMesa.findById(idObject))
+        return mesa.__dict__
+
+    def actualizarMesa(self, mesa):
+        mesaActual = Mesa(self.repositorioMesa.findById(mesa["idObject"]))
+        print("Actualizando la mesa...", mesaActual)
+        mesaActual.numero = mesa["Número mesa"]
+        mesaActual.can_ins = mesa["Cantidad inscritos"]
+        self.repositorioMesa.save(mesaActual)
+        return True
+
+    def borrarMesa(self, id):
+        return self.repositorioMesa.delete(id)
+
 
