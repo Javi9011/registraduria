@@ -15,7 +15,11 @@ class ControladorResultado():
         return True
 
     def buscarTodosResul(self):
+<<<<<<< HEAD
         print("Buscando todos los resultados en la Base de Datos")
+=======
+        print("Buscando todos los resultados en la Base de Datos...")
+>>>>>>> 725aa29 (Cambios Carolina)
         return self.repositorioResultado.findAll()
 
     def buscarResultado(self, idObject):
