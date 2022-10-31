@@ -3,7 +3,7 @@ from Modelos.Partido import Partido
 
 class ControladorPartido():
     def __int__(self):
-        print("Creando controlador de Partido")
+        print("Creando controlador de Partido.....")
         self.repositorioPartido = InterfacePartido()
 
 
