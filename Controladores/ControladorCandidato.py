@@ -6,7 +6,7 @@ class ControladorCandidato():
         self.repositorioCandidato=RepositorioCandidato()
 
     def crearCandidato(self, bodyRequest):
-        print("crear candidato...")
+        print("creando candidato...")
         elCandidato = Candidato(bodyRequest)
         print("Candidato a crear en la Base de Datos: ",elCandidato.__dict__)
         self.repositorioCandidato.save(elCandidato)
