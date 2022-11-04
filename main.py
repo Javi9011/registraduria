@@ -71,7 +71,7 @@ def eliminarCandidato(id):
 
 
 @app.route("/partidos",methods=['POST'])
-def crearPartido():
+def createPartido():
     data= request.get_json()
     json=miControladorPartido.crearPartido(data)
     return jsonify(json)
