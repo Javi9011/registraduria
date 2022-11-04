@@ -13,7 +13,7 @@ class ControladorCandidato():
         return True
 
     def buscarTodos(self):
-        print("Buscando todos los candidatos en la Base de Datos...")
+        print("Buscando todos los candidatos en la Base de Datos..
         return self.repositorioCandidato.findAll()
 
     def buscarCandidato(self,idObject):
