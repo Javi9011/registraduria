@@ -6,13 +6,7 @@ class ControladorCandidato():
     def __init__(self):
         print("Creando Controlador Candidato")
         self.repositorioCandidato=RepositorioCandidato()
-        self.repositorioPartido=InterfacePartido
-
-    def asignarPartido(self,id,id_partido):
-        candidatoActual=Candidato(self.repositorioCandidato.findById(id))
-        partidoActual=Partido(self.repositorioPartido.findById(id_partido))
-        candidatoActual.patido=partidoActual
-        return self.repositorioCandidato.save(candidatoActual)
+        self.repositorioPartido=InterfacePartido()
 
     def crearCandidato(self, bodyRequest):
         print("creando candidato...")
@@ -40,3 +34,12 @@ class ControladorCandidato():
 
     def deleteCandidato(self, id):
         return self.repositorioCandidato.delete(id)
+
+    def asignarPartido(self,idCandidato,idPartido):
+        partidoActual=Partido(self.repositorioPartido.findById(idPartido))
+        candidatoActual=Candidato(self.repositorioCandidato.findById(idCandidato))
+        print("Partido encontrado: ",partidoActual)
+        print("Candidato encontrado: ",candidatoActual)
+        candidatoActual.partido=partidoActual
+        print("Candidato actualizado: ", candidatoActual)
+        return self.repositorioCandidato.save(candidatoActual)

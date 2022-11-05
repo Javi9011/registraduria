@@ -148,10 +148,10 @@ def borrarMesa(id):
     else:
         return jsonify(result)
 
-@app.route("/candidato/<string:id>/partidos/<string:id_partido>",methods=['PUT'])
-def asignarPartidoACandidato(id,id_partido):
-    json=ControladorCandidato.asignarPartido(id,id_partido)
-    return jsonify(json)
+@app.route("/candidato/<string:idCandidato>/partidos/<string:idPartido>",methods=['PUT'])
+def asignarPartidoACandidato(idCandidato, idPartido):
+    result=ControladorCandidato.asignarPartido(idCandidato,idPartido)
+    return jsonify(result)
 
 @app.route("/resultados",methods=['GET'])
 def getResultados():
