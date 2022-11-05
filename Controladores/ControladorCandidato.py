@@ -13,7 +13,7 @@ class ControladorCandidato():
         return True
 
     def buscarTodos(self):
-        print("Buscando todos los estudiantes en la Base de Datos...")
+        print("Buscando todos los candidatos en la Base de Datos...")
         return self.repositorioCandidato.findAll()
 
     def buscarCandidato(self,idObject):
@@ -21,13 +21,12 @@ class ControladorCandidato():
         candidato = Candidato(self.repositorioCandidato.findById(idObject))
         return candidato.__dict__
 
-    def actualizarCandidato(self, candidato):
-        candidatoActual = Candidato(self.repositorioCandidato.findById(candidato["idObject"]))
-        print("Actualizando el candidato....", candidatoActual)
-        candidatoActual.nombre = candidato["nombre"]
-        candidatoActual.apellido = candidato["apellido"]
-        candidatoActual.cedula = candidato["cedula"]
-        self.repositorioEstudiante.save(candidatoActual)
+    def actualizarCandidato(self,id,elCandidato):
+        candidatoActual=Candidato(self.repositorioCandidato.findById(id))
+        candidatoActual.cedula = elCandidato["cedula"]
+        candidatoActual.nombre = elCandidato["nombre"]
+        candidatoActual.apellido = elCandidato["apellido"]
+        self.repositorioCandidato.save(candidatoActual)
         return True
 
     def deleteCandidato(self, id):

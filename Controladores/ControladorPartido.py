@@ -17,7 +17,7 @@ class ControladorPartido():
 
     def buscarTodosLosPartidos(self):
         print("Buscando todos los partidos en la Base de Datos...")
-        self.repositorioPartido.findAll()
+        return self.repositorioPartido.findAll()
 
     def buscarPartido(self,idObject):
         print("buscar partido",idObject)
