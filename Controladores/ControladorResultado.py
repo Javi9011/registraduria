@@ -19,12 +19,13 @@ class ControladorResultado():
     Asignacion candidato y mesa a resultado
     """
 
-    def createResult(self,infoResultado,id_candidato,id_mesa):
-        nuevoResultado = Resultado(infoResultado)
-        elCandidato = Candidato(self.repositorioCandidato.findById(id_candidato))
-        laMesa = Mesa(self.repositorioMesa.findById(id_mesa))
+    def createResult(self,bodyRequest,idCandidato,idMesa):
+        nuevoResultado = Resultado(bodyRequest)
+        elCandidato = Candidato(self.repositorioCandidato.findById(idCandidato))
+        laMesa = Mesa(self.repositorioMesa.findById(idMesa))
         nuevoResultado.candidato = elCandidato
         nuevoResultado.mesa = laMesa
+        print("Resultado a crear en BD: ",nuevoResultado.__dict__)
         return self.repositorioResultado.save(nuevoResultado)
 
     def mostrarID(self, id):
