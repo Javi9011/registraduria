@@ -148,9 +148,9 @@ def borrarMesa(id):
     else:
         return jsonify(result)
 
-@app.route("/candidato/<string:idCandidato>/partidos/<string:idPartido>",methods=['PUT'])
-def asignarPartidoACandidato(idCandidato, idPartido):
-    result=ControladorCandidato.asignarPartido(idCandidato,idPartido)
+@app.route("/candidato/<string:idCandidato>/partido/<string:idPartido>",methods=['PUT'])
+def asignarPartidoACandidato(idCandidato,idPartido):
+    result=controladorCandidato.asignarPartido(idCandidato,idPartido)
     return jsonify(result)
 
 @app.route("/resultados",methods=['GET'])

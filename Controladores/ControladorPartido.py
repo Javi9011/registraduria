@@ -1,10 +1,10 @@
-from Repositorios.InterfacePartido import InterfacePartido
+from Repositorios.InterfacePartido import RepositorioPartido
 from Modelos.Partido import Partido
 
 class ControladorPartido():
     def __init__(self):
         print("Creando controlador de Partido.....")
-        self.repositorioPartido = InterfacePartido()
+        self.repositorioPartido = RepositorioPartido()
 
 
 
