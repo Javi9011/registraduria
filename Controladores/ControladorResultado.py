@@ -35,7 +35,7 @@ class ControladorResultado():
     Modificación de inscripción (candidato y mesa)
     """
 
-    def update(self, id, infoResultado, id_candidato, id_mesa):
+    '''def update(self, id, infoResultado, id_candidato, id_mesa):
         elResultado = Resultado(self.repositorioResultado.findById(id))
         elResultado.numero_mesa = infoResultado["numero_mesa"]
         elResultado.cedula_candidato = infoResultado["cedula_candidato"]
@@ -44,7 +44,15 @@ class ControladorResultado():
         laMesa = Mesa(self.repositorioMesa.findById(id_mesa))
         elResultado.candidato = elCandidato
         elResultado.mesa = laMesa
-        return self.repositorioResultado.save(elResultado)
+        return self.repositorioResultado.save(elResultado)'''
+
+    def update(self, id, infoResultado, id_mesa, id_candidato):
+        nuevoResultado = Resultado(self.repositorioResultado.findById(id))
+        laMesa = Mesa(self.repositorioMesa.findById(id_mesa))
+        elCandidato = Candidato(self.repositorioCandidato.findById(id_candidato))
+        nuevoResultado.mesa = laMesa
+        nuevoResultado.candidato = elCandidato
+        return self.repositorioResultado.save(nuevoResultado)
 
     def deleteResult(self, id):
         return self.repositorioResultado.delete(id)

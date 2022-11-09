@@ -49,9 +49,9 @@ def buscarTodos():
 
 
 @app.route("/candidato/<string:id>", methods=['PUT'])
-def actualizarCandidato(id):
+def actualizandoCandidato(id):
     data = request.get_json()
-    json = ControladorCandidato.actualizarCandidato(id,data)
+    json = controladorCandidato.actualizarCandidato(id,data)
     return jsonify(json)
 
 @app.route("/candidato/<string:id>", methods=['DELETE'])
@@ -155,11 +155,11 @@ def asignarPartidoACandidato(idCandidato,idPartido):
 
 @app.route("/resultados",methods=['GET'])
 def getResultados():
-    json=ControladorResultado.index()
+    json=controladorResultado.index()
     return jsonify(json)
 @app.route("/resultados/<string:id>",methods=['GET'])
-def getResultado(id):
-    json=ControladorResultado.mostrarID()
+def MostrarPorID(id):
+    json=controladorResultado.mostrarID()
     return jsonify(json)
 @app.route("/resultados/candidato/<string:idCandidato>/mesa/<string:idMesa>",methods=['POST'])
 def crearResultado(idCandidato,idMesa):
@@ -167,10 +167,15 @@ def crearResultado(idCandidato,idMesa):
     print("Request body: ",requestBody)
     result=controladorResultado.createResult(requestBody,idCandidato,idMesa)
     return jsonify(result)
-@app.route("/resultados/<string:id_resultados>/candidato/<string:id_candidato>/mesa/<string:id_mesa>",methods=['PUT'])
+'''@app.route("/resultados/<string:id_resultados>/candidato/<string:id_candidato>/mesa/<string:id_mesa>",methods=['PUT'])
 def modificarResultados(id_resultados,id_candidato,id_mesa):
     data = request.get_json()
     json=ControladorResultado.update(id_resultados,data,id_candidato,id_mesa)
+    return jsonify(json)'''
+@app.route("/resultados/<string:id_resultado>/mesa/<string:id_mesa>/candidato/<string:id_candidato>", methods=["PUT"])
+def modificarResultado(id_resultado, id_mesa, id_candidato):
+    data = {}
+    json = controladorResultado.update(id_resultado, data, id_mesa, id_candidato)
     return jsonify(json)
 @app.route("/inscripciones/<string:id_inscripcion>",methods=['DELETE'])
 def eliminarInscripcion(id_inscripcion):
