@@ -11,7 +11,7 @@ from Controladores.ControladorResultado import ControladorResultado
 from Controladores.ControladorMesa import ControladorMesa
 
 controladorCandidato = ControladorCandidato()
-miControladorPartido= ControladorPartido()
+controladorPartido= ControladorPartido()
 controladorResultado = ControladorResultado()
 controladorMesa = ControladorMesa()
 
@@ -73,12 +73,12 @@ def eliminarCandidato(id):
 @app.route("/partidos",methods=['POST'])
 def crearPartido():
     data= request.get_json()
-    json=miControladorPartido.crearPartido(data)
+    json=controladorPartido.crearPartido(data)
     return jsonify(json)
 
 @app.route("/partidos/<string:id>",methods=['GET'])
 def buscarPartido(id):
-    result=miControladorPartido.buscarPartido(id)
+    result=controladorPartido.buscarPartido(id)
     if result is None:
         return {"resultado": "No se encuentra el partido en base de datos!"}
     else:
@@ -86,7 +86,7 @@ def buscarPartido(id):
 
 @app.route("/partidos",methods=['GET'])
 def buscarTodosLosPartidos():
-    result= miControladorPartido.buscarTodosLosPartidos()
+    result= controladorPartido.buscarTodosLosPartidos()
     if not result:
         return {"resultado": "No se encuentran los Partidos"}
     else:
@@ -96,7 +96,7 @@ def buscarTodosLosPartidos():
 def actualizarPartido():
     requestBody = request.get_json()
     print("Request body: ", requestBody)
-    result= miControladorPartido.actualizarPartido(requestBody)
+    result= controladorPartido.actualizarPartido(requestBody)
     if result:
         return {"resultado": "Partido actualizado!"}
     else:
@@ -104,7 +104,7 @@ def actualizarPartido():
 
 @app.route("/partidos/<string:id>",methods=['DELETE'])
 def eliminarPartido(id):
-    result= miControladorPartido.deletePartido(id)
+    result= controladorPartido.deletePartido(id)
     if result is None:
         return {"resultado": "No se elimina el Partido en base de datos!"}
     else:
