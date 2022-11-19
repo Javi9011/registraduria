@@ -4,5 +4,4 @@
 
   "data-db-connection": "mongodb+srv://dbUser:Mongo901108@cluster0.59ot9h8.mongodb.net/?retryWrites=true&w=majority",
   "name-db": "bd-registraduria"
-
 }
